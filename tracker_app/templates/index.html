@@ -1,0 +1,253 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expence Tracker</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shorthandcss@1.1.1/dist/shorthand.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:200,300,400,500,600,700,800,900&display=swap" />
+    <link rel="stylesheet" type="text/css"href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" />
+    <link rel="stylesheet" type="text/css"href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+</head>
+<style>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+
+th{
+    border: 2px solid rgb(243, 243, 243);
+    background-color: rgba(28, 40, 209, 0.315);
+    padding: 10px;
+}
+td{
+    border: 1px solid #ffffff;
+}
+
+.btn1{
+    border: 2px solid black;
+    background-color: rgba(255, 0, 0, 0.671);
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    border-radius: 20px;
+    height:25px ;
+    width:100px ;
+}
+.btn1:hover{
+    background-color: #5111ff8c;
+    color: white;
+
+}
+.btn {
+  border: 2px solid black;
+  background-color: white;
+  color: black;
+  font-size: 16px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+
+.success {
+  border-color: #4400ff;
+  color: rgb(4, 0, 255);
+}
+#boder{
+    border: hidden;
+    background-color: transparent;
+}
+
+.success:hover {
+  background-color: #5111ff8c;
+  color: white;
+}
+
+input[type=text],[type=number],[type=password]{
+        height: 28px;
+        width: 200px;
+        background-color: aliceblue;
+}
+
+
+
+</style>
+
+<body class="bg-black muli" style="height: auto;">
+    <nav style="width: 100%;height: 70px;background-color:red;">
+            <div style="width: 50%; height: 70px;float: left;padding-left: 25px;"> 
+                <div style="width: 22%;background-color:rgb(0, 0, 0); height: 70px;float: left;padding-left: 20px;"> 
+                    <img style="height: 80px" src="{% static 'images/log.png'%}" />
+                </div>
+                <div style="margin-left: 25%; height: 50px;text-align: left;padding-right: 30px;padding-top: 20px;">
+                    <h1>&nbsp;EXPANCE TRACKER</h1>
+                </div>   
+            </div>
+            <div style="margin-left: 50%; height: 50px;text-align: right;padding-top: 10px;padding-left: 200px;">
+                <table>
+                    <tr>
+                        <th id="boder"><a href="#home" class="fs-s1 mx-3 py-3 black no-underline hover-underline">Home</a></th>
+                        <th id="boder"><a  href="#pricing" class="fs-s1 mx-3 py-3 black no-underline hover-underline">Blogs</a></th>
+                        <th id="boder"><a href="#blog" class="fs-s1 mx-3 py-3 black no-underline hover-underline">Contact Us</a></th>
+                        <th id="boder"><form action="log_out" method="POST">{% csrf_token %}<input type="submit" class="btn1" value="Logout"></form></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </nav>
+    
+    <div style="width: 100%; height: 575px"> 
+        <!-- Add details -->
+
+        <div style="border: 3px solid #000000;width: 99%;height: 50px; padding: 10px;margin-top: 10px;margin-bottom: 10px;">
+                <P style="color:white;font-family:arial black;text-align:center;font-size:large;"><b><u>{{data}}</u></b></P>
+        </div>
+
+        <div style="border: 1px solid #000000;width: 100%;height: 260px;">
+            <div style="border: 1px solid #000000;width: 200%; height: 260px;width: 45%; float: left;"> 
+            <center>
+                <form method="POST" action="wal" style="color:white ;">
+                    {% csrf_token %}
+                    <table style="color: white;text-align:center;margin-top: 10px; border:1px solid #ffffff;padding: 30px;width: 60%">
+                        <tr>
+                            <th>Wallet</th>
+                            <th style="color: white;" >
+                                {% for e in contactdetail %}
+                                   <p name="amount" id="amount">{{e.amount}}</p> 
+                                {% endfor %}
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Matter</th>
+                            <td>
+                            <select style="height:25px;width:200px" name="matter">
+                                <option value=></option>
+                                <option value="travel">Travel</option>
+                                <option value="food">Food</option>
+                                <option value="Stay">Stay</option>
+                            </select>
+                            </td>
+                        <tr>
+                            <th>Spent</th>
+                            <td><input id="spend" style="height:25px;width:200px" type="text" name="spend"></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 26%;height: 50px;" colspan="2"><input class="success btn" style="width: 125px;height: 30px;" type="submit" onclick="mat()" name="add_matter" value="Add"></td>
+                        </tr>
+                    </table>
+                </form>
+            </center></div>
+            <div style=" border: 1px solid #000000;margin-left: 45%; height: 260px">
+                <div style=" border: 1px solid #000000;width: 40%; height: 260px;">
+                <a href="inx.html"><img style="height: 230px;width: 200px" src="{% static 'images/logo 2.jpg'%}" /></a> 
+                    <p style="color: red;padding-left: 75px;"><b>{{msg}}</b></p>
+                </div>
+                <div style="border: 1px solid #000000;margin-left:40%; height: 275px;width: 50%;margin-top: -225px;">
+                    <center>
+                    <table style="height: 175px;width:90%;padding-right: 20px;text-align: center;">
+                        <form action="wal" method="POST">
+                            {% csrf_token %}
+                            <tr><th style="color: white;"><b>Add wallet Amount</b></th></tr>
+                            <tr><td><input type="number" placeholder="Amount to Wallet" name="walletadd"></td></tr>
+                            <tr><td><input type="submit" name="add_wallet"   style="width: 125px;height: 30px;"  class="success btn" value="Payment"></td></tr>
+                        </form>
+                    </table>
+                    </center>
+                </div>
+            </div>
+        </div>     
+
+        <!-- Display details -->
+        <div style=" border:1px solid #000000;width: 99%;height: 220px; padding: 10px">
+            <center>
+            <form action="display">
+                <table style="color: white;width: 95%;border:1px outset #ff0000;text-align:center">
+                    <tr>
+                        <th colspan="5"><u>Expense Book</u></th>
+                    </tr>
+                    <tr>
+                        <th style="width:200px ;"></th>
+                        <th>Travel</th>
+                        <th>Food</th>
+                        <th>Stay</th>
+                        <th>Total_Spent</th>
+                    </tr>
+                    <tr>
+                        <th>Amound</th>
+                        <td>{{sum}}</td>
+                        <td>{{sum1}}</td>
+                        <td>{{sum2}}</td>
+                        <td>{{sum3}}</td>
+                    </tr>
+                </table>
+            </form>  
+        </center>
+    </div>
+    
+        
+
+
+    <!-- footer -->
+    <footer class=" bg-indigo-lightest-10"  style="height: 200px;margin-top: -50px;">
+        <div class="flex flex-wrap" style="padding: 25PX;">
+            <div class="md-w-25pc mb-10">
+                <div class="white opacity-70 fs-s2 mt-4 md-pr-10">
+                    <p>An expense tracker is a application that helps to keep an accurate record of your money inflow and outflow. </p>
+                    <br>
+                    <p>Many people in India live on a fixed income, and they find that they don't have sufficient money to meet their needs.</p>
+                </div>
+            </div>
+            <div class="w-100pc md-w-50pc">
+                <div class="flex justify-around">
+                    <div class="w-33pc md-px-10 mb-10">
+                        <h5 class="white">Company</h5>
+                        <ul class="list-none mt-5 fs-s2">
+                            <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">About
+                                    Us</a></li>
+                            <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">Jobs</a>
+                            </li>
+                            <li class="my-3"><a href="#"
+                                    class="white opacity-70 no-underline hover-underline">Contact</a></li>
+                            <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">Media</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="w-33pc md-px-10 mb-10">
+                        <h5 class="white">Product</h5>
+                        <ul class="list-none mt-5 fs-s2">
+                            <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">About
+                                    Us</a></li>
+                            <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">Jobs</a>
+                            </li>
+                            <li class="my-3"><a href="#"
+                                    class="white opacity-70 no-underline hover-underline">Contact</a></li>
+                            <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">Media</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="w-33pc md-px-10 mb-10">
+                        <h5 class="white">Support</h5>
+                        <ul class="list-none mt-5 fs-s2">
+                            <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">About
+                                    Us</a></li>
+                            <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">Jobs</a>
+                            </li>
+                            <li class="my-3"><a href="#"
+                                    class="white opacity-70 no-underline hover-underline">Contact</a></li>
+                            <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">Media</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="w-100pc md-w-25pc">
+                <h2 style="color: white">Condact Us</h2>
+                <div class="flex w-75pc md-w-100pc mx-auto">     
+                    <input   type="text"
+                        class="input flex-grow-1 bw-0 fw-200 bg-indigo-lightest-10 white ph-indigo-lightest focus-white opacity-80 fs-s3 py-5 br-r-0"
+                        placeholder="Message...">
+                    <button class="button bg-indigo indigo-lightest fw-300 fs-s3 br-l-0" >Send</button></form>
+                </div>
+            </div>
+        </div>
+    </footer> 
+</body>
+
+</html>
